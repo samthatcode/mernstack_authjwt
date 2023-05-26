@@ -7,7 +7,7 @@ const dotenv = require('dotenv');
 dotenv.config();
 const cookieParser = require("cookie-parser");
 const authRoute = require("./Routes/AuthRoute");
-const { MONGO_URL }  = process.env;
+const { MONGO_URL } = process.env;
 
 
 
@@ -18,13 +18,13 @@ mongoose.connect(MONGO_URL, {
 }).then(() => console.log("MongoDB is  connected successfully")).catch((err) => console.error(err));
 
 // Set up the server to listen on the specified PORT:
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT || 5174;
 app.listen(PORT, () => console.log(`Server is listening on port ${PORT}`));
 
 // Enable CORS for the specified origin, methods, and credentials:
 app.use(
     cors({
-        origin: ["http://localhost:5000"],
+        origin: ["http://localhost:5173"],
         methods: ["GET", "POST", "PUT", "DELETE"],
         credentials: true,
     })
