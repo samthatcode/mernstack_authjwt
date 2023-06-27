@@ -9,15 +9,18 @@ const cookieParser = require("cookie-parser");
 const authRoute = require("./Routes/AuthRoute");
 const { MONGO_URL } = process.env;
 
-
-
 // Connect to MongoDB using the MONGO_URL
 mongoose.connect(MONGO_URL, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
-}).then(() => console.log("MongoDB is  connected successfully")).catch((err) => console.error(err));
+})
+    .then(() => console.log("MongoDB is  connected successfully"))
+    .catch((error) => {
+        console.log("Unable to connect to MongoDB Atlas!");
+        console.error(error);
+    });
 
-// Set up the server to listen on the specified PORT:
+// Set up the server to listen on the specified PORT: 
 const PORT = process.env.PORT || 5174;
 app.listen(PORT, () => console.log(`Server is listening on port ${PORT}`));
 
@@ -29,6 +32,12 @@ app.use(
         credentials: true,
     })
 );
+
+// Error handling middleware
+app.use((err, req, res, next) => {
+    console.error(err);
+    res.status(500).json({ error: "Internal server error" });
+});
 
 // Parse request bodies as JSON: app.use(express.json());
 app.use(express.json());

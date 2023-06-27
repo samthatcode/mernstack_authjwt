@@ -3,7 +3,6 @@ const secretToken = require("./tokenUtils").secretToken;
 
 // Use the secret token in your code
 module.exports.createSecretToken = (id) => {
-    return jwt.sign({ id }, secretToken, {
-        expiresIn: 3 * 24 * 60 * 60,
-    });
+    const expiresIn = "24h"; // Expiration time set to 24 hours
+    return jwt.sign({ id }, secretToken, { expiresIn });
 };

@@ -8,13 +8,17 @@ const generateRandomString = (length) => {
     return crypto.randomBytes(length).toString("hex");
 };
 
-// Get the token value from the environment variable or generate a new random token
-const secretToken = process.env.TOKEN_KEY === undefined || process.env.TOKEN_KEY === ''
-    ? generateRandomString(32)
-    : process.env.TOKEN_KEY;
+try {
+    // Get the token value from the environment variable or generate a new random token
+    const secretToken = process.env.TOKEN_KEY === undefined || process.env.TOKEN_KEY === ''
+        ? generateRandomString(32)
+        : process.env.TOKEN_KEY;
 
     console.log("Secret Token:", secretToken);
 
-module.exports = {
-    secretToken
-};
+    module.exports = {
+        secretToken
+    };
+} catch (error) {
+    console.error("Error generating secret token:", error);
+}
